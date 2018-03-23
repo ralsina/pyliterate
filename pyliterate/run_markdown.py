@@ -377,7 +377,7 @@ def main():
         tzset()
 
         # Kill the process if it's been running for longer than the timeout.
-        signal.alarm(FLAGS.timeout_seconds)
+        signal.alarm(int(FLAGS.timeout_seconds))
 
         text = open(path, encoding='utf-8').read()
         it = iterate_blocks(path, text)
