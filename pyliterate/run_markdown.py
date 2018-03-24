@@ -314,10 +314,21 @@ def iterate_blocks(path, text):
 
                 pending_output += exec_syntax_error(source)
             elif block_suffix.startswith('python-include:'):
-                include_path = block_suffix[len('python-include:'):]
+                split_suffix = block_suffix.split(':')
+                if len(split_suffix) < 4:
+                    end = 100000
+                else:
+                    end = int(split_suffix[3])
+                if len(split_suffix) < 3:
+                    start = 0
+                else:
+                    start = int(split_suffix[2])
+                include_path = split_suffix[1]
                 file_basename = os.path.basename(include_path)
                 full_path = os.path.join(FLAGS.root_dir, include_path)
-                data = open(full_path, 'r').read().strip()
+                with open(full_path, 'r') as inf:
+                    lines = inf.readlines()[start:end]
+                    data = ''.join(lines)
                 pending_source += data
 
                 yield '```%s\n' % block_suffix.split('-')[0]
