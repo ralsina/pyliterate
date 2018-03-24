@@ -327,7 +327,7 @@ def iterate_blocks(path, text):
                 file_basename = os.path.basename(include_path)
                 full_path = os.path.join(FLAGS.root_dir, include_path)
                 with open(full_path, 'r') as inf:
-                    lines = inf.readlines()[start:end]
+                    lines = inf.readlines()[start-1:end]
                     data = ''.join(lines)
                 pending_source += data
 
