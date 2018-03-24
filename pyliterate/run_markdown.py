@@ -85,7 +85,7 @@ class Flags(object):
             '--timeout_seconds',
             action='store',
             default=5,
-            type=float,
+            type=int,
             help='Kill the process with an error if the Python code in the '
                  'Markdown file hasn\'t finished executing in this time.')
         self.parser.add_argument(
@@ -317,11 +317,12 @@ def iterate_blocks(path, text):
                 include_path = block_suffix[len('python-include:'):]
                 file_basename = os.path.basename(include_path)
                 full_path = os.path.join(FLAGS.root_dir, include_path)
-                data = open(full_path, 'r').read()
+                data = open(full_path, 'r').read().strip()
+                pending_source += data
 
                 yield '```%s\n' % block_suffix
                 yield '# %s\n' % file_basename
-                yield data.strip()
+                yield data
                 yield '\n```'
             else:
                 if pending_source:
