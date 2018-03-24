@@ -320,7 +320,7 @@ def iterate_blocks(path, text):
                 data = open(full_path, 'r').read().strip()
                 pending_source += data
 
-                yield '```%s\n' % block_suffix
+                yield '```%s\n' % block_suffix.split('-')[0]
                 yield '# %s\n' % file_basename
                 yield data
                 yield '\n```'
