@@ -299,6 +299,10 @@ def iterate_blocks(path, text):
                     pending_output += exec_exception(
                         path, pending_source, context)
                     pending_source = ''
+            elif block_suffix == 'python-norun':
+                yield '```python'
+                yield source
+                yield '```'           
             elif block_suffix == 'python2':
                 yield '```python2'
                 if not source.startswith('\n# Python 2'):
@@ -320,7 +324,7 @@ def iterate_blocks(path, text):
                 else:
                     end = int(split_suffix[3])
                 if len(split_suffix) < 3:
-                    start = 0
+                    start = 1
                 else:
                     start = int(split_suffix[2])
                 include_path = split_suffix[1]
@@ -378,6 +382,8 @@ def print_iter(it, path, overwrite):
 
 def main():
     FLAGS.parse()
+    if FLAGS.root_dir:
+        sys.path.append(FLAGS.root_dir)
 
     for path in FLAGS.path:
         # Always use the same seed so multiple runs of the same Markdown files

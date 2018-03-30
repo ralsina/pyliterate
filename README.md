@@ -81,6 +81,7 @@ Here's a list of various detailed features that are provided by the `run_markdow
 - `Pdb.set_trace()` will actually stop execution in the Markdown file so you can debug as the program runs
 - Exception tracebacks and PDB step line numbers are all given as line numbers in the original Markdown file
 - Use ```````python```` to run a code snippet as Python 3 source. This will automatically inherit all of the state of the program for any snippets that are higher up in the Markdown file
+- Use ```````python-norun```` to insert a code snippet as Python 3 source and NOT RUN IT.
 - Use ```````python2```` to run a code snippet as Python 2 source instead of Python 3. Notably, Python 2 snippets will not inherit the Python execution state from higher up in the file, they are limited to the containing ``` block
 - Use ```````python-exception```` for expected exceptions for which you want to insert the exception name and error message back into the Markdown file
 - Use ```````python-syntax-error```` for examples that contain syntax errors that you want to insert back into the Markdown file
