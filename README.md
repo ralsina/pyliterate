@@ -86,6 +86,7 @@ Here's a list of various detailed features that are provided by the `run_markdow
 - Use ```````python-exception```` for expected exceptions for which you want to insert the exception name and error message back into the Markdown file
 - Use ```````python-syntax-error```` for examples that contain syntax errors that you want to insert back into the Markdown file
 - Use ```````python-include:path/to/file.py:from:to```` to include an external Python file relative to the `--root_dir` flag, which defaults to the root of the book. The directory. This will automatically insert a comment of the source file's relative path at the top of the included source. The optional from/to arguments are line numbers to load files partially.
+- Use ```````python-include-norun:path/to/file.py:from:to```` to do the same thing as python-include but NOT RUN the file.
 - The `random.seed` is always set to `1234` so your random functions have predictable output
 - The timezone is always set to `US/Pacific` so your code runs in the same timezone regardless of where your computer currently is located
 - The script will only be allowed to run for `--timeout_seconds` before being terminated (defaults to 5 seconds)
