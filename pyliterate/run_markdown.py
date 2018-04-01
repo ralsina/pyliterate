@@ -336,8 +336,9 @@ def iterate_blocks(path, text):
                 if block_suffix.startswith('python-include:'):
                     pending_source += data
 
+                yield '**`%s`**\n' % file_basename
                 yield '```%s\n' % block_suffix.split('-')[0]
-                yield '# %s\n' % file_basename
+                yield '&&&%s\n' % start
                 yield data
                 yield '\n```'
             else:
