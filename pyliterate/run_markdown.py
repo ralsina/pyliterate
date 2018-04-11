@@ -302,7 +302,7 @@ def iterate_blocks(path, text):
             elif block_suffix == 'python-norun':
                 yield '```python'
                 yield source
-                yield '```'           
+                yield '```'
             elif block_suffix == 'python2':
                 yield '```python2'
                 if not source.startswith('\n# Python 2'):
@@ -335,8 +335,7 @@ def iterate_blocks(path, text):
                     data = ''.join(lines)
                 if block_suffix.startswith('python-include:'):
                     pending_source += data
-
-                yield f'''<div class='source_title'><a href="{include_path + ".html"}" target="_blank">{file_basename}</a></div>\n\n'''
+                yield f'''<div class='source_title'><a href="{os.path.normpath(full_path) + ".html"}" target="_blank">{file_basename}</a></div>\n\n'''
                 yield '```%s\n' % block_suffix.split('-')[0]
                 yield '&&&%s\n' % start
                 yield data
