@@ -268,7 +268,7 @@ def iterate_blocks(path, text):
             source = text[source_start:start]
 
             # Closing block
-            if block_suffix in ('python', 'python-exception'):
+            if block_suffix in ('python', 'python-exception', 'python-noshow'):
                 # Run any pending source immediately if this is a Python
                 # exception block to ensure we re-raise unexpected exceptions
                 # back up instead of just printing them into output blocks.
@@ -291,9 +291,10 @@ def iterate_blocks(path, text):
                 # first output block *or* the end of the file.
                 pending_source += source
 
-                yield '```%s' % block_suffix
-                yield source
-                yield '```'
+                if 'noshow' not in block_suffix:
+                    yield '```%s' % block_suffix
+                    yield source
+                    yield '```'
 
                 if block_suffix == 'python-exception':
                     pending_output += exec_exception(
@@ -317,7 +318,7 @@ def iterate_blocks(path, text):
                 yield '```'
 
                 pending_output += exec_syntax_error(source)
-            elif block_suffix.split(':')[0] in ('python-include', 'python-include-norun'):
+            elif block_suffix.split(':')[0] in ('python-include', 'python-include-norun', 'python-include-noshow'):
                 split_suffix = block_suffix.split(':')
                 if len(split_suffix) < 4:
                     end = 100000
@@ -333,13 +334,14 @@ def iterate_blocks(path, text):
                 with open(full_path, 'r') as inf:
                     lines = inf.readlines()[start-1:end]
                     data = ''.join(lines)
-                if block_suffix.startswith('python-include:'):
+                if block_suffix.split(':')[0] in ('python-include', 'python-include-noshow'):
                     pending_source += data
-                yield f'''<div class='source_title'><a href="{os.path.normpath(full_path) + ".html"}" target="_blank">{file_basename}</a></div>\n\n'''
-                yield '```%s\n' % block_suffix.split('-')[0]
-                yield '&&&%s\n' % start
-                yield data
-                yield '\n```'
+                if 'noshow' not in block_suffix:
+                    yield f'''<div class='source_title'><a href="{os.path.normpath(full_path) + ".html"}" target="_blank">{file_basename}</a></div>\n\n'''
+                    yield '```%s\n' % block_suffix.split('-')[0]
+                    yield '&&&%s\n' % start
+                    yield data
+                    yield '\n```'
             else:
                 if pending_source:
                     pending_output += exec_source(
