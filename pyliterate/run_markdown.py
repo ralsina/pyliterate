@@ -305,7 +305,7 @@ def iterate_blocks(path, text):
                 fname = block_suffix.split(':')[1]
                 with tempfile.NamedTemporaryFile(mode='w+', delete=False) as inf:
                     inf.write(source)
-                subprocess.check_call(['dot', '-Nfontname=Helvetica', '-Efontname=Helvetica', '-Gstyle=../../styles/forest.css', '-Tsvg', inf.name, '-o', fname])
+                subprocess.check_call(['dot', '-Nfontname=Helvetica', '-Efontname=Helvetica', '-Gstylesheet=../../styles/forest.css', '-Tsvg', inf.name, '-o', fname])
                 os.unlink(inf.name)
                 yield f'\n<img src="{fname}" class="chart">\n'
             elif block_suffix == 'python-norun':
