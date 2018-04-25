@@ -259,7 +259,7 @@ def iterate_blocks(path, text):
             # Figure out the language of the opening block.
             suffix_end = text.find('\n', end)
             if suffix_end > 0:
-                block_suffix = text[end:suffix_end].lower()
+                block_suffix = text[end:suffix_end]
                 source_start = end + len(block_suffix)
 
             # All text until the block start
