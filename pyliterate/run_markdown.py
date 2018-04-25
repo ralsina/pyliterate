@@ -334,7 +334,7 @@ def iterate_blocks(path, text):
                 yield '```'
 
                 pending_output += exec_syntax_error(source)
-            elif block_suffix.split(':')[0] in ('python-include', 'python-include-norun', 'python-include-noshow'):
+            elif block_suffix.split(':')[0].endswith(('-include', '-include-norun', '-include-noshow')):
                 split_suffix = block_suffix.split(':')
                 if len(split_suffix) < 4:
                     end = 100000
