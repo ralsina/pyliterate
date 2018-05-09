@@ -323,9 +323,9 @@ def iterate_blocks(path, text):
             elif block_suffix == 'bash':
                 hl_lines = ','.join(str(i) for i, l in enumerate(source.splitlines()) if l.startswith('$ '))
                 if hl_lines:
-                    yield '```bash\n|||%s' % hl_lines
+                    yield '```plaintext\n|||%s' % hl_lines
                 else:
-                    yield '```bash'
+                    yield '```plaintext'
                 yield source
                 yield '```'
             elif block_suffix == 'python-syntax-error':
